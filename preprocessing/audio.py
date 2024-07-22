@@ -45,6 +45,8 @@ def splitBySpeakers(wav_file, speaker_changes):
     for i, t in enumerate(speaker_changes):
         end = t * 1000 #pydub works in millisec
         audio_chunk = audio[start:end]
+        silence = AudioSegment.silent(duration=1000)
+        audio_chunk = audio_chunk + silence #add silence to the end of speaker chunk to ensure the last "endpoint" gets labeled as one
         audio_chunk.export(f"samples/speaker_endpoints/{file_id}_{i}.wav", format="wav")
 
         start = end
@@ -52,8 +54,9 @@ def splitBySpeakers(wav_file, speaker_changes):
     destination = os.path.join("samples/used", os.path.basename(wav_file))
     shutil.move(wav_file, destination)
 
-def splitBySilence(wav_file, cutoff=5, threshold=-16, min_length=5000, min_interval=300, hop_size=10, max_sil_kept=500):
+def splitBySilence(wav_file, cutoff=5, threshold=-40, min_length=7000, min_interval=800, hop_size=10, max_sil_kept=800):
     # Load the audio file
+    print(f"Splitting {wav_file} by silence...")
     audio, sr = librosa.load(wav_file, sr=None, mono=False)
     file_id = wav_file.split('/')[2].split('.')[0]
 
@@ -69,23 +72,24 @@ def splitBySilence(wav_file, cutoff=5, threshold=-16, min_length=5000, min_inter
     # Slice the audio
     chunks = slicer.slice(audio)
 
+    # Calculate total duration and the 1.5 second threshold
+    total_duration = len(audio[0]) / sr
+    threshold_time = total_duration - 1
+
     cutoff_length = cutoff * sr
     chunk_labels = []
-    for i, chunk in enumerate(chunks): 
+    for i, (chunk, start_time, end_time) in enumerate(chunks): 
         chunk = chunk.T
         chunk_length = chunk.shape[0]
-        print(chunk.shape)
+
         if chunk_length > cutoff_length:
             chunk = chunk[-cutoff_length:]
-        # else:
-        #     wnoise_length = cutoff_length - chunk_length
-        #     wnoise = np.random.normal(0, 0.01, (wnoise_length, 2))      #-> use this if want more samples (could be risky with white noise and lack of dialogue)
-        #     chunk = np.concatenate((chunk, wnoise), axis=0)
 
             output_file = os.path.join("samples/processed_samples", f"{file_id}_{i}.wav")
             sf.write(output_file, chunk, sr)
 
-            if i == len(chunks) - 1:
+            if end_time / sr > threshold_time:
+                print(end_time / sr, threshold_time)
                 chunk_labels.append((output_file, 1))
             else:
                 chunk_labels.append((output_file, 0))
@@ -93,10 +97,9 @@ def splitBySilence(wav_file, cutoff=5, threshold=-16, min_length=5000, min_inter
 
 
 def extract_audio_features(wav_file):
-    audio, sr = librosa.load(wav_file, sr=None, mono=False)
+    audio, sr = librosa.load(wav_file, sr=44100, mono=False)
     mfccs = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=13)
     mfccs_1d = mfccs.flatten()
-
     return mfccs_1d
 
 
@@ -136,7 +139,7 @@ def mp3_to_wav(audio_file):
     subprocess.run(ffmpeg_command)
  
 def exportDataset(dataset, audio_labels):
-    with open("datasets/final_dataset.csv", 'w', newline='', encoding='utf-8') as csvfile:
+    with open("datasets/final_dataset2.csv", 'w', newline='', encoding='utf-8') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(["audio file", "transcription", "label"])
 

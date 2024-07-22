@@ -41,3 +41,11 @@ def createDataset(dataset, audio_files, api_key="da81c42d95b0bb82c02b43b36002b21
         print(f"Exception: {e}")
 
 
+def checkFalsePositives(dataset, audio_labels):
+    for key in dataset.keys():
+        transcription = dataset[key]
+        if transcription.endswith('.') or transcription.endswith('?') or transcription.endswith('!'):
+            continue
+        else:
+            audio_labels[key] = 0
+    return dataset, audio_labels
