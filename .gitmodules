@@ -1,3 +1,0 @@
-[submodule "audio_slicer"]
-	path = audio_slicer
-	url = https://github.com/openvpi/audio-slicer
