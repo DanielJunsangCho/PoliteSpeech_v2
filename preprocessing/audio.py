@@ -139,7 +139,7 @@ def mp3_to_wav(audio_file):
     subprocess.run(ffmpeg_command)
  
 def exportDataset(dataset, audio_labels):
-    with open("datasets/final_dataset2.csv", 'w', newline='', encoding='utf-8') as csvfile:
+    with open("datasets/final_dataset.csv", 'w', newline='', encoding='utf-8') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(["audio file", "transcription", "label"])
 

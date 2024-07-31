@@ -1,11 +1,13 @@
-import preprocessing.audio as Audio
-import preprocessing.text as Text
-import models.model1 as CNN
-import models.model2 as LSTM
 import sys, os
 import pandas as pd
 import numpy as np
 import math
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+import preprocessing.audio as Audio
+import preprocessing.text as Text
+import models.two_input as CNN
 
 def main():
     path = sys.argv[1]
@@ -38,25 +40,13 @@ def main():
             text_feature = text_feature + [0] * diff
         real_text_features.append(text_feature)
 
-    
-    combined_features = []
-    for i in range(len(audio_features)):
-        combined_row = np.hstack((audio_features[i], real_text_features[i]))
-        combined_features.append(combined_row)
-    
-    combined_features = np.stack(combined_features, axis=0)
+
+    audio_features = np.stack(audio_features, axis=0)
+    real_text_features = np.stack(real_text_features, axis=0)
     labels = df['label'].values
 
-    # data = np.load('temp_array.npz')
-    # combined_features = data['combined_features']
-    # labels = data['labels']
-
     print("Training model...")
-    CNN.train_model(combined_features, labels)
-
-    # labels = df['label']
-    # LSTM.train_LSTM(combined_features, labels)
-
+    CNN.train_model(audio_features, real_text_features, labels)
 
 
 

@@ -10,41 +10,39 @@ import numpy as np
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
-        
+
         self.features = nn.Sequential(
-            nn.Conv1d(1, 64, kernel_size=4, stride=2),
+            nn.Conv1d(1, 64, kernel_size=4, stride=2, padding=1),
             nn.BatchNorm1d(64),
             nn.ReLU(inplace=True),
             nn.Dropout(0.2),
             
-            nn.Conv1d(64, 128, kernel_size=4, stride=2),
+            nn.Conv1d(64, 128, kernel_size=4, stride=2, padding=1),
             nn.BatchNorm1d(128),
             nn.ReLU(inplace=True),
             nn.Dropout(0.2),
             
-            nn.Conv1d(128, 256, kernel_size=4, stride=2),
+            nn.Conv1d(128, 256, kernel_size=4, stride=2, padding=1),
             nn.BatchNorm1d(256),
             nn.ReLU(inplace=True),
             nn.Dropout(0.2),
 
-            nn.MaxPool1d(kernel_size=8, stride=2)
+            nn.MaxPool1d(kernel_size=8, stride=2, padding=1)
         )
-
-        # self.lstm = nn.LSTM(input_size=256, hidden_size=128, num_layers=1, batch_first=True)
-        self.classifier = nn.Linear(181248, 1)
-        # self.classifier = nn.Linear(128, 1)
         
+        self.Flatten = nn.Flatten()
+        self.FC = nn.Linear(181248, 1) #with padding=2
+        # self.FC = nn.Linear(180992, 1) #with padding=1
+        # self.FC = nn.Linear(180736, 1) #without padding
+        self.sigmoid = nn.Sigmoid()
+
     def forward(self, x):
-        x = x.unsqueeze(1) if x.dim() == 2 else x  # handle 2D input
+        x = x.unsqueeze(1)
         x = self.features(x)
-
-        # x = x.permute(0, 2, 1)
-        # _, (h_n, _) = self.lstm(x)
-        # x = h_n[-1]
-
-        x = x.view(x.size(0), -1)
-        x = self.classifier(x)
-        return torch.sigmoid(x)
+        x = self.Flatten(x)
+        x = self.FC(x)
+        x = self.sigmoid(x)
+        return x
 
 
 
@@ -54,11 +52,11 @@ class trainCNN:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
 
-    def compile(self, learning_rate=0.0001, weight_decay=1e-5):
+    def compile(self, learning_rate=0.000001, weight_decay=1e-4):
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate, weight_decay=weight_decay)
         self.loss = nn.BCELoss()
 
-    def fit(self, X_train, y_train, epochs=100, batch_size=32, val_threshold=5, validation_data=None):
+    def fit(self, X_train, y_train, epochs=500, batch_size=32, val_threshold=6, validation_data=None):
         train_dataset = TensorDataset(torch.FloatTensor(X_train), torch.FloatTensor(y_train))
         train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
@@ -70,7 +68,7 @@ class trainCNN:
 
         best_val_loss = float('inf')
         epochs_no_improvement = 0
-        best_model = None
+        self.best_model = None
 
         for epoch in range(epochs):
             running_loss = 0.0
@@ -109,7 +107,7 @@ class trainCNN:
                 if val_loss < best_val_loss:
                     best_val_loss = val_loss
                     epochs_no_improvement = 0
-                    best_model = self.model.state_dict()
+                    self.best_model = self.model.state_dict()
                 else:
                     epochs_no_improvement += 1
                 
@@ -117,7 +115,7 @@ class trainCNN:
                     print(f"Early stopping triggered after {epoch + 1} epochs")
                     break
 
-        self.model.load_state_dict(best_model)
+        self.model.load_state_dict(self.best_model)
         print("Finished training")
 
     def eval(self, X_test, y_test):
@@ -138,14 +136,16 @@ class trainCNN:
         print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}")
         return accuracy.item(), precision.item(), recall.item()
 
+
 def train_model(features, labels):
     scaler = StandardScaler()
     features_scaled = scaler.fit_transform(features)
 
-    X_train, X_test, y_train, y_test = train_test_split(features_scaled, labels, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
     X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
 
     model = trainCNN()
     model.compile()
     model.fit(X_train, y_train, validation_data=(X_val, y_val))
     accuracy, precision, recall = model.eval(X_test, y_test)
+
