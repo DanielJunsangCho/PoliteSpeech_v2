@@ -1,0 +1,27 @@
+import mlflow
+from mlflow.tracking import MlflowClient
+
+def get_or_create_experiment(experiment_name):
+    """
+    Retrieve the ID of an existing MLflow experiment or create a new one if it doesn't exist.
+
+    Parameters:
+    - experiment_name (str): Name of the MLflow experiment.
+
+    Returns:
+    - str: ID of the existing or newly created MLflow experiment.
+    """
+
+    if experiment := mlflow.get_experiment_by_name(experiment_name):
+        return experiment.experiment_id
+    else:
+        return mlflow.create_experiment(experiment_name)
+mlflow.set_tracking_uri("http://localhost:5001")
+# client = MlflowClient()
+
+try:
+    # experiments = client.list_experiments()
+    get_or_create_experiment('hi')
+    print(f"Successfully connected. Found experiments.")
+except Exception as e:
+    print(f"Failed to connect to MLflow server: {e}")

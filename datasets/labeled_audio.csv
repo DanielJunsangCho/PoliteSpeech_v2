@@ -1,95 +1,71 @@
-audio_file,transcription,label
-processed_samples/example4_4.wav,"Target and, um, Walmart for the last, uh, 10 plus years where I have managed teams.",0
-processed_samples/example4_5.wav,"And the work that, uh, the teams did were in the field of data science. Uh, so",0
-processed_samples/example4_6.wav,"Advanced degrees in, um, operations research and statistics and industrial engineering.",0
-processed_samples/example4_7.wav,Models and making recommendations on where things can be improved.,0
-processed_samples/example4_8.wav,People all the way to 100 people over the course of my 10 plus years in a managerial role.,1
-processed_samples/example4_10.wav,That have prior industry experience. So they are mostly able to work independently.,0
-processed_samples/example4_11.wav,The value is in making sure the right problems are addressed.,0
-processed_samples/example4_12.wav,"Business stakeholders, what they need at their end. So my focus has been on",0
-processed_samples/example4_13.wav,"Centric, but at the same time, addresses the business problems that we are trying to solve.",1
-processed_samples/example4_16.wav,"Areas where we work in is what's called as network planning, which is about",0
-processed_samples/example4_17.wav,Standing the future needs and coming up with recommendations on how to grow the network.,0
-processed_samples/example4_18.wav,Day to day basis and not so much on what needs to be done for 5 years later.,0
-processed_samples/example4_20.wav,"Will take us in the long term, gives us a picture of what is needed.",0
-processed_samples/example4_21.wav,"At visibility, and that's what we usually use to communicate to the stakeholders.",1
-processed_samples/example4_23.wav,To be external hires because the company did not have the specific skill skill sets that I was looking for.,0
-processed_samples/example4_24.wav,Build the relationships with the stakeholders by making sure we have enough,0
-processed_samples/example4_25.wav,Their career. So that has been my approach. Said the ecosystem help,0
-processed_samples/example4_26.wav,"I've had bad performance as in any team. You know, there will be some hires that do not go well.",0
-processed_samples/example4_27.wav,Is to try and see if the bad performance is something that can be corrected and improved upon.,0
-processed_samples/example4_28.wav,I have had to put people on performance improvement plans and give them alternate roles or let them go.,1
-processed_samples/example5_3.wav,"A financial industries, uh, company or for a security company.",1
-processed_samples/example5_5.wav,1 pagers and pitch decks and fully customize them to be ultra targeted to that target audience.,1
-processed_samples/example5_7.wav,"All the content, and we went out. We validated the idea and got really good feedback.",1
-processed_samples/example5_9.wav,"Uh, you know, product marketers are becoming more prevalent. Um, so",0
-processed_samples/example5_10.wav,"And you have a $100 a month user license, you have quite a big market size there.",1
-processed_samples/example5_12.wav,"Now we're working on the next generation of it, uh, which is predicted to go out at the end of April.",1
-processed_samples/example5_14.wav,"That have multiple different target audiences are the best, uh, best customer for flight.",1
-processed_samples/example5_16.wav,"Or content that goes into channels like social media. Um, so and no one's no one's targeting product marketing.",1
-processed_samples/example5_18.wav,"Yeah. Good question. So our unique insights are just from being, you know, a",0
-processed_samples/example5_19.wav,"Base model layers on top of it a trained model, and then each customer also has their own trained model.",1
-processed_samples/example5_21.wav,Plan has more AI features like that custom AI model that I was telling you about.,1
-processed_samples/example5_23.wav,"A 10% conversion rate, and that has led us to having 100 customers today.",0
-processed_samples/example5_24.wav,"Of over a 1000 customers. Uh, and today, we have an MRR of $10,000 a month.",1
-processed_samples/example5_26.wav,"Technology and the business background, and we actually met about 6 months ago through YC Combinator.",1
-processed_samples/example5_30.wav,"Intrusive. Um, we have been funded, and we're a portfolio company.",1
-processed_samples/example5_36.wav,"Okay, sir. I don't know if you guys see the, uh, the captions here, but",0
-processed_samples/example5_39.wav,Companies and you just take it day by day and stay positive. Celebrate the big wins.,1
-processed_samples/example6_5.wav,"Through it over a weekend. And through that, I was able to learn a lot of the functionalities as it relates to setting up servers.",0
-processed_samples/example6_6.wav,"Intelligent conversations with my back end engineers. With SQL, that took a little bit more time. Um, I mostly looked at",0
-processed_samples/example6_8.wav,"And effective in doing analytics I needed to learn SQL. Hence, I, uh, decided on those two skills.",1
-processed_samples/example6_10.wav,"Were as a company and as a platform with the leadership and our, uh, as a product.",1
-processed_samples/example6_12.wav,"Requirements, then I would go out and mark it and understand comparables and the existing solutions out there because, ultimately,",0
-processed_samples/example6_13.wav,"From there, see what the market validation and market, um, acceptance is to that MVP and progress.",1
-processed_samples/example6_15.wav,"That we can build and essentially making it more intelligent than competitors, that would be a huge",0
-processed_samples/example6_16.wav,And so those are 3 methods where we can be more competitive and have higher value propositions than competitors.,1
-processed_samples/example6_18.wav,"Building it and then talking to the designers who, uh, will make whatever I subscribe on paper come to life.",1
-processed_samples/example6_20.wav,"We're architecting, building a better solution than what they currently have with their Flippy version of",0
-processed_samples/example6_23.wav,"Meant to build into multiple different epics. Um, the biggest thing is making sure that everyone is aligned and organized from a",0
-processed_samples/example6_24.wav,"You know, stakeholder perspective and is aligned from an expectations perspective of what the final deliverable should be.",1
-processed_samples/example6_26.wav,And done what those exact user stories would be until I do the market research and talk to engineers involved in the process.,1
-processed_samples/example6_28.wav,Expecting to do this action by navigating to xyz website and opening xyz row.,0
-processed_samples/example6_29.wav,User flow is and then how that is correlated on the front end UI with the respective designs it's coupled with.,1
-processed_samples/example6_31.wav,"The actions or motions that it needs to take. And then I think, finally, I would need to learn a little bit further about",0
-processed_samples/example6_32.wav,"That yield, um, as battery technology gets better or we're able to innovate more on battery technology.",0
-processed_samples/example6_34.wav,"And then once that are in charge of, you know, the respective categories of battery technology, robotics, locomotion, etcetera.",1
-processed_samples/example6_40.wav,A Stripe documentation and then guiding my engineers for the specific functionality or feature that we were interested in extracting from Stripe.,1
-processed_samples/example6_42.wav,"By running the automations and APIs, it allowed us to just click a button where a invoice was automatically issued via Stripe's APIs.",1
-processed_samples/example6_46.wav,"We sell where there is high NPS and very low churn slash, um, returns.",1
-processed_samples/example2_5.wav,"And I've led teams of, uh, product managers, 3 to 4 product managers per team.",1
-processed_samples/example2_7.wav,"Looking at, um, the work that is upcoming to be delivered.",0
-processed_samples/example2_10.wav,The stakeholder sorry. If it requires a uh company to,0
-processed_samples/example2_11.wav,"Try to evaluate what the requirements are, determine whether or not it's okay to",0
-processed_samples/example2_12.wav,And then focus on delivering whatever needs to be completed depending on who the stakeholders are.,1
-processed_samples/example2_22.wav,"The data to a, uh, s three bucket and",0
-processed_samples/example2_23.wav,"For the person who was collecting the metrics to be able to actually upload the data, which created multiple steps in the process. We",0
-processed_samples/example2_24.wav,"Location and then have the service account actually upload the metrics to the final location, um, in the s three bucket.",1
-processed_samples/example2_27.wav,"Competition is, um, do SWOT analysis, and based on",0
-processed_samples/example2_34.wav,"Out, um, the stories and epics required for their work to begin to begin.",0
-processed_samples/example2_35.wav,"That would answer any questions they had about product functionality, work with a design team to create designs for the product functionality, that kind of stuff.",1
-processed_samples/example2_37.wav,Would work with the engineers to tweak the product to be able to either deliver it on time or within whatever the technical budget is.,1
-processed_samples/example2_41.wav,If the product was shut down but the company was still functioning or if I was fired?,1
-processed_samples/example2_43.wav,"On the next thing. If it was because the team sucked for whatever reason, then, uh, I would quit in finding a job.",1
-processed_samples/example2_45.wav,"Disagree is ultimately they it's a it's their decision, so we'd let them decide to make a final decision on the product vision.",1
-processed_samples/example3_18.wav,"And I did it, uh, with office supplies working for Corporate Express and then Staples.",1
-processed_samples/example3_20.wav,"In a strong opinion, I would ask questions and lead them around to my way of thinking. So they thought it was their idea.",1
-processed_samples/example3_22.wav,"Tracked round and, uh, the, uh, mix up in labeling, uh, went down to nearly 0%.",1
-processed_samples/example3_23.wav,"Of course, hit my goals, but what motivates me even more is when I don't hit my goals because then it makes me work harder.",1
-processed_samples/example3_24.wav,"K. And do my best where the, uh, opportunity to earn money doesn't have a cap on it.",1
-processed_samples/example3_26.wav,"And match our products to, uh, their needs so that we could resolve any issues that they may have.",1
-processed_samples/example3_28.wav,Get down to whatever it is they that they need to hear. So I just tend to match personality styles.,1
-processed_samples/example3_30.wav,"Um, you know, leadership, anything that could be of help. How would you define company integrity?",1
-processed_samples/example3_31.wav,"Or a person to do exactly what they say, uh, whether it is to do an action or not do an action.",1
-processed_samples/example1_1.wav,Coach and any specific strategies you used. So majority of my sales experience comes from,0
-processed_samples/example1_2.wav,"Educational software. Um, so what we do is we pretty much",0
-processed_samples/example1_3.wav,"And, uh, I've been doing that for about 5 years now, and that's, uh, pretty much all of the sales experience that I have.",1
-processed_samples/example1_8.wav,So that would be one of the pieces that I've kind of convinced my colleagues as to take notice of.,1
-processed_samples/example1_12.wav,"We wanted to leave for 3, so getting something new and seeing if it is something that I'd really enjoy is kind of exciting.",1
-processed_samples/example1_16.wav,"The end, then I have an understanding to get out a little bit earlier and then move on to the next piece. So",0
-processed_samples/example1_17.wav,Piece as to either pursuing it and pushing forward or just backing off and moving on to the next person.,1
-processed_samples/example1_18.wav,"Benjamin, it sounds like you have strong interpersonal skills and a good sense of when to pivot in a in a sales conversation.",0
-processed_samples/example1_20.wav,To want to go to work and do their job because they believe in it. I just wanna make sure that that is the question.,1
-processed_samples/example1_22.wav,"Um, I think it is quite important, to be honest. So",0
-processed_samples/example1_23.wav,"Of the company atmosphere that I'm in, that I'm leaving, um, and the fact that they're going to be selling the company within the upcoming year.",0
-processed_samples/example1_24.wav,I feel like everybody in the world would like to have that feeling of I did something good today.,0
+audio file,transcription,label
+samples/processed_samples/a16z_a16z Podcast The Dream of AI Is Alive in Go_96_0.wav,"Involve things that you would think require creativity, a uniquely human thing.",1
+samples/processed_samples/Art & Company Podcast_Cat del Buono and Yeon Jin Kim Women Artists and the Allure of New Media  - #9_65_0.wav,Art is to do art. That's right. And not to write about it or talk about it. But here we're gonna talk about it anyway.,1
+samples/processed_samples/a16z_a16z Podcast The Future of Entertainment and What David Petraeus and the Olsen Twins Can Teach Us_87_0.wav,"Right. I'll start the conversation. Total change of pace, uh, Mary Kate and Ashley Olsen.",1
+samples/processed_samples/Techdirt_A Whirlwind Tour Of Current Policy Issues In Tech_176_0.wav,"Huge concern about how do you how do you build a global Internet when when you have Well, I mean, in Google",0
+samples/processed_samples/Bear and Bear Cub Family Gaming_Episode 20_The One Where We're All VR Geeked_450_0.wav,"Like, 5,000,000,000 times to open the blooming freezer.",1
+samples/processed_samples/The Voice of 5G_Episode 12_5G & IoT_272_0.wav,"I know, of course, many things we haven't built yet, so who knows? Maybe they will be.",1
+samples/processed_samples/Maximum Enthusiasm_Life Made Simple with Stephanie- round 2- conquering the closet_38_0.wav,"With how many pairs of shoes there were, and I just felt a sense of",0
+samples/processed_samples/Maximum Enthusiasm_Life Made Simple with Stephanie- round 2- conquering the closet_38_1.wav,Okay. My closet's empty. Everything's in all the other closets. My shoes are all over my floor.,1
+samples/processed_samples/PodcastDetroit_1 Girl Revolution – Episode 4_Detroit Girl Power and Beauty with Candice Simons_136_0.wav,"Cocktail parties, and we've had, like, fashion shows in there, all sorts of stuff. So",0
+samples/processed_samples/UX Podcast_#185 Gaming behaviour with Kellee Santiago_181_0.wav,"Story arcs, thinking carefully considered content. I mean, there's all this kind of stuff where",0
+samples/processed_samples/a16z_a16z Podcast A Podcast about Podcasts_108_0.wav,"Produced approach. How do you think about this? I mean, you described some of your techniques earlier.",1
+samples/processed_samples/Maximum Enthusiasm_Life Made Simple with Stephanie- round 2- conquering the closet_272_0.wav,"It was, of course, on the master bedroom closet. And what she said was, I liked",0
+samples/processed_samples/UX Podcast_#184 Accreditation with Zoe Rose_5_0.wav,"Zoe, we're sitting down with you today.",0
+samples/processed_samples/UX Podcast_#184 Accreditation with Zoe Rose_5_1.wav,And that seems to be a topic that a lot of UXers are sort of,0
+samples/processed_samples/UX Podcast_#184 Accreditation with Zoe Rose_5_2.wav,"Way it's gonna happen. Uh, how did you start thinking about this?",1
+samples/processed_samples/Mangoes and Coconuts_Episode 4 Jazz travels back to the Philippines_390_0.wav,,0
+"samples/processed_samples/GeeklyBiWeekly_Geekly Bi-Weekly Episode 1 WandaVision, Disney+, Spiderman, HBO MAX_546_0.wav","As Javelin, Nathan Fillion as TDK or the detachable kid,",0
+"samples/processed_samples/Introduction to Minecraft In Education_Nov 6, 2013_9_0.wav",Here on the Hangouts and in the in game server that I think we'll talk about later on.,1
+samples/processed_samples/SBC016_108_0.wav,That Luxman offers is basically a,0
+samples/processed_samples/SBC010_56_0.wav,"Really, the secretary serves almost no funds. There's they know. They're signed.",1
+samples/processed_samples/UX Podcast_#189 Contrasting design worlds with Namrata Mehta_48_0.wav,"And, uh, and works and at that time was in Indonesia with the UNDPU.",0
+samples/processed_samples/UX Podcast_#189 Contrasting design worlds with Namrata Mehta_48_1.wav,A hard time talking. And I think it's because we feel like we need to have the answers Mhmm. Even though we don't.,0
+samples/processed_samples/UX Podcast_#189 Contrasting design worlds with Namrata Mehta_48_2.wav,"Incredible process of, uh, not just personal growth, but also",0
+samples/processed_samples/The Voice of 5G_Episode 12_5G & IoT_513_0.wav,I like the idea of a certain level of autonomous driving as well.,1
+samples/processed_samples/UX Podcast_#122 Calm technology with Amber Case_123_0.wav,"Of 1 to 7, how good are you at backing up your online data?",1
+samples/processed_samples/SBC002_376_0.wav,"Jeff taught it. I mean, because they do it different than Brazilians do it.",1
+samples/processed_samples/With Good Reason_Pandemics Past_85_0.wav,"During the shutdown, to be collaborating with people in such far flung places.",1
+samples/processed_samples/Parental Settings_Weekend Getaway_69_0.wav,The pool that night. We had an early dinner and we no. We did a quick dip. We went did a quick tour of a lazy river.,1
+samples/processed_samples/a16z_a16z Podcast Artificial Intelligence and the 'Space of Possible Minds'_198_0.wav,"Something that is very, very good at making decisions and solving problems and optimizing agency.",1
+"samples/processed_samples/GeeklyBiWeekly_Geekly Bi-Weekly Episode 1 WandaVision, Disney+, Spiderman, HBO MAX_453_0.wav","Take on the character, and it it yields itself so well.",1
+samples/processed_samples/example2_33_0.wav,If the product was shut down but the company was still functioning or if I was fired.,1
+samples/processed_samples/UX Podcast_#211 Disruptive design patterns with Laura Kalbag_308_0.wav,"3. No really, no really, no really, no really. Life is what the dream.",0
+samples/processed_samples/UX Podcast_#211 Disruptive design patterns with Laura Kalbag_308_1.wav,"Mhmm. It's Roder, but I said it with a whole accent. Roder.",1
+samples/processed_samples/This Movie's About You_Episode 40_Karen Gordon_130_0.wav,"Trickster joker character in this scenario, because he's both a fan and a supporter of",0
+"samples/processed_samples/Borderless Podcast_What does the Trump Plan, Vacation Rentals and Bitcoin Mean for Your Taxes?_16_0.wav","True or not or what's going on nowadays with some of the news that's out. But, uh, you know, a lot of people were kind of",0
+samples/processed_samples/Art & Company Podcast_Cat del Buono and Yeon Jin Kim Women Artists and the Allure of New Media  - #9_298_0.wav,There to leave all the easy stuff and go stand over there and actually start creating. Once you start,0
+samples/processed_samples/SBC016_413_0.wav,"Okay. How it's all going. And I'll certainly let you know about this thing. Um, I'll be calling back. Okay.",1
+samples/processed_samples/UX Podcast_#230 Growth marketing with Sara Öhman_208_0.wav,"I know people like you are in there somewhere, but I never get to talk to you.",1
+"samples/processed_samples/GeeklyBiWeekly_Geekly Bi-Weekly Episode 1 WandaVision, Disney+, Spiderman, HBO MAX_279_0.wav","Actually provide a whole lot of shade. They recognize that as I said palm tree. So, you know, we're good.",1
+samples/processed_samples/a16z_a16z Podcast Selling to Developers & Open Source Business Models_16_0.wav,Somehow a bleeding between developers and what's typically been in IT budgets.,1
+samples/processed_samples/example1_10_0.wav,"Like, you have strong interpersonal skills and a good sense of when to pivot in a in a sales",0
+samples/processed_samples/example1_10_1.wav,"Any integrity. How important do you think it is, and how do you see it playing a role in your work?",1
+samples/processed_samples/a16z_a16z Podcast Artificial Intelligence and the 'Space of Possible Minds'_52_0.wav,Actually was taken away. And so the cat was imagining swiping mice and this sort of thing while being asleep.,1
+samples/processed_samples/SBC016_292_0.wav,"The side of the tape that's out or facing you, that label side.",1
+samples/processed_samples/SBC003_319_0.wav,What? You're watering with that. Is that what you're doing? Yeah. Yeah. Sounds good. Perfect water. Uh-huh.,1
+"samples/processed_samples/Borderless Podcast_What does the Trump Plan, Vacation Rentals and Bitcoin Mean for Your Taxes?_152_0.wav",And are there any other I saw you had a article there. Are there any other kind of tips and stuff that you,0
+samples/processed_samples/SBC003_131_0.wav,I threw a green cover down your glass. My shirt.,1
+samples/processed_samples/Arts Council England_Digital R&D for the Arts Forum distributing content discussion_52_0.wav,"The wine grower in their vineyard, introducing the wines that you're drinking.",0
+samples/processed_samples/Arts Council England_Digital R&D for the Arts Forum distributing content discussion_52_1.wav,"Um, so last week, last Saturday morning, we had Elton John.",1
+samples/processed_samples/a16z_a16z Podcast The Future of Entertainment and What David Petraeus and the Olsen Twins Can Teach Us_113_0.wav,"To turn out to be PhDs or a serious advanced education. Yeah. Well, that part. Yes.",1
+samples/processed_samples/a16z_a16z Podcast Scaling Companies and Culture_56_0.wav,Me have this customer come up on stage and talk about how their life has actually been changed because of the work you've done.,1
+samples/processed_samples/a16z_a16z Podcast Artificial Intelligence and the 'Space of Possible Minds'_100_0.wav,"Obama's crew who's helping him get elected and his support team, it's actually people who are",0
+samples/processed_samples/Bear and Bear Cub Family Gaming_Episode 22_The One Where We're All About The Nintendo Switch_446_0.wav,And you're going to be doing nighttime orienteering,0
+"samples/processed_samples/Linear Digressions_Facial Recognition, Society, and the Law_103_0.wav","Well written and articulates itself somewhat better than than we did here. And,",0
+"samples/processed_samples/Techdirt_Twitter, Free Speech, And Mob Behavior_9_0.wav","That people do is going to seem like mobbing. Yeah. Um, so I think",0
+samples/processed_samples/UX Podcast_#213 Spacesuit design with Lindsey Aitchison_74_0.wav,We're going to operate at a specific pressure that it can withstand a safety margin in the well above that.,1
+samples/processed_samples/a16z_a16z Podcast The Future of Entertainment and What David Petraeus and the Olsen Twins Can Teach Us_127_0.wav,"Know. I know. Yeah. Because I I Sometimes they coincide, but in his case, they were actually totally separate.",1
+samples/processed_samples/The Voice of 5G_Episode 12_5G & IoT_337_0.wav,"34.0. Yeah. And, um, that's, uh, And we've learned",0
+"samples/processed_samples/UX Podcast_#262 Design confidence with Kate Rutter, Kim Goodwin and Pamela Pavliscak_95_0.wav",Quickest onboarding and the highest amount of instant productivity if you already know those tools.,0
+"samples/processed_samples/UX Podcast_#262 Design confidence with Kate Rutter, Kim Goodwin and Pamela Pavliscak_95_1.wav","We'll need to know the methods that lie behind it and what you're really doing, but that does take time.",1
+samples/processed_samples/SBC016_2_0.wav,Yes.,1
+samples/processed_samples/UX Podcast_#230 Growth marketing with Sara Öhman_86_0.wav,It works to actually do what they need. Yeah. Then that then makes the whole chain work.,1
+samples/processed_samples/Arts Council England_Digital R&D for the Arts Forum distributing content discussion_102_0.wav,"And after you, I've got space for one one more comment, sorry. So",0
+samples/processed_samples/This Movie's About You_Episode 40_Karen Gordon_193_0.wav,"Of all ages, not every I mean, you have to get chosen. There's that's the whole other.",1
+samples/processed_samples/SBC001_97_0.wav,She did. They did have an autopsy then.,1
+samples/processed_samples/SBC012_65_0.wav,But I think maybe one of the reasons could be they're not being represented. They don't think they're being represented.,0
+samples/processed_samples/SBC012_65_1.wav,"Seeing, like, direct results for them, you know, coming out of, like, the representation.",0
+samples/processed_samples/With Good Reason_Pandemics Past_98_0.wav,"And, yes, there's side effects to everything, but autism isn't one of them.",1
+samples/processed_samples/Mangoes and Coconuts_Episode 4 Jazz travels back to the Philippines_428_0.wav,Because the rest of the world doesn't have the same amount of vaccines as the United States.,1
+samples/processed_samples/Techdirt_Section 230 & Trump's Executive Order_29_0.wav,Is that it is couched in a term that totally misinterprets cda 230.,1

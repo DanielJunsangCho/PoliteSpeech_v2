@@ -1,151 +1,273 @@
 import torch
 import torch.nn as nn
+import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 from torcheval.metrics.functional import binary_accuracy, binary_precision, binary_recall
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import sys, os, time
+import pandas as pd
 import numpy as np
+import math
+import mlflow
+import optuna
+from optuna.trial import TrialState
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+import preprocessing.audio as Audio
+import preprocessing.text as Text
+
+mlflow.set_tracking_uri("http://127.0.0.1:5000/")
+optuna.logging.set_verbosity(optuna.logging.ERROR)
+
+DEVICE = torch.device("cpu")
+EPOCHS = 10
+BATCHSIZE = 32
+N_TRAIN_EXAMPLES = BATCHSIZE * 90
+N_VALID_EXAMPLES = BATCHSIZE * 20
+params = {}
+features, labels = None, None
 
 
-class CNN(nn.Module):
-    def __init__(self):
-        super(CNN, self).__init__()
+def define_model(trial):
+    global params 
 
-        self.features = nn.Sequential(
-            nn.Conv1d(1, 64, kernel_size=4, stride=2, padding=1),
-            nn.BatchNorm1d(64),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.2),
-            
-            nn.Conv1d(64, 128, kernel_size=4, stride=2, padding=1),
-            nn.BatchNorm1d(128),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.2),
-            
-            nn.Conv1d(128, 256, kernel_size=4, stride=2, padding=1),
-            nn.BatchNorm1d(256),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.2),
+    n_layers = trial.suggest_int("n_layers", 2, 3)
+    layers = []
 
-            nn.MaxPool1d(kernel_size=8, stride=2, padding=1)
-        )
-        
-        self.Flatten = nn.Flatten()
-        self.FC = nn.Linear(181248, 1) #with padding=2
-        # self.FC = nn.Linear(180992, 1) #with padding=1
-        # self.FC = nn.Linear(180736, 1) #without padding
-        self.sigmoid = nn.Sigmoid()
+    in_features = 1
+    input_dim = 11366
+    # input_dim = 11333
+    for i in range(n_layers):
+        out_features = trial.suggest_int("n_units_l{}".format(i), 4, 128)
+        kernel_size = trial.suggest_int("kernel_size_l{}".format(i), 2, 8)
+        stride = trial.suggest_int("stride_l{}".format(i), 1, 3)
+        padding = trial.suggest_int("padding_l{}".format(i), 1, 3)
+        layers.append(nn.Conv1d(in_features, out_features, kernel_size, stride, padding))
+        layers.append(nn.BatchNorm1d(out_features))
+        layers.append(nn.ReLU())
 
-    def forward(self, x):
-        x = x.unsqueeze(1)
-        x = self.features(x)
-        x = self.Flatten(x)
-        x = self.FC(x)
-        x = self.sigmoid(x)
-        return x
+        p = trial.suggest_float("dropout_l{}".format(i), 0.2, 0.5)
+        layers.append(nn.Dropout(p))
 
+        in_features = out_features
+        input_dim = ((input_dim + (2 * padding) - kernel_size) // stride) + 1
+
+        params["out_features_l{}".format(i)] = out_features
+        params["kernel_size_l{}".format(i)] = kernel_size
+        params["stride_l{}".format(i)] = stride
+        params["padding_l{}".format(i)] = padding
+
+    layers.append(nn.Flatten())
+    final_dim = in_features * input_dim
+    layers.append(nn.Linear(final_dim, 1))
+    layers.append(nn.Sigmoid())
+
+    return nn.Sequential(*layers)
 
 
-class trainCNN:
-    def __init__(self):
-        self.model = CNN()
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.model.to(self.device)
-
-    def compile(self, learning_rate=0.000001, weight_decay=1e-4):
-        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=learning_rate, weight_decay=weight_decay)
-        self.loss = nn.BCELoss()
-
-    def fit(self, X_train, y_train, epochs=500, batch_size=32, val_threshold=6, validation_data=None):
-        train_dataset = TensorDataset(torch.FloatTensor(X_train), torch.FloatTensor(y_train))
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-
-
-        if validation_data:
-            X_val, y_val = validation_data
-            val_dataset = TensorDataset(torch.FloatTensor(X_val), torch.FloatTensor(y_val))
-            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
-
-        best_val_loss = float('inf')
-        epochs_no_improvement = 0
-        self.best_model = None
-
-        for epoch in range(epochs):
-            running_loss = 0.0
-            for i, (inputs, labels) in enumerate(train_loader, 0):
-                inputs, labels = inputs.to(self.device), labels.to(self.device)
-
-                self.optimizer.zero_grad()
-
-                outputs = self.model.forward(inputs)
-                outputs = outputs.squeeze()
-
-                loss = self.loss(outputs, labels)
-                loss.backward()
-                self.optimizer.step()
-
-                running_loss += loss.item()
-                if i % 10 == 0:  # Print every 10 iterations
-                    print(f'[epoch: {epoch + 1}, iteration: {i}] loss: {running_loss / 10:.4f}')
-                    running_loss = 0.0
-
-            if validation_data:
-                self.model.eval()
-                val_loss = 0.0
-                with torch.no_grad():
-                    for inputs, labels in val_loader:
-                        inputs, labels = inputs.to(self.device), labels.to(self.device)
-                        outputs = self.model(inputs)
-                        outputs = outputs.squeeze()
-                        loss = self.loss(outputs, labels)
-                        val_loss += loss.item()
-
-
-                val_loss /= len(val_loader)
-                print(f'[epoch: {epoch + 1}] validation loss: {val_loss:.4f}')
-
-                if val_loss < best_val_loss:
-                    best_val_loss = val_loss
-                    epochs_no_improvement = 0
-                    self.best_model = self.model.state_dict()
-                else:
-                    epochs_no_improvement += 1
-                
-                if epochs_no_improvement == val_threshold:
-                    print(f"Early stopping triggered after {epoch + 1} epochs")
-                    break
-
-        self.model.load_state_dict(self.best_model)
-        print("Finished training")
-
-    def eval(self, X_test, y_test):
-        X_test = torch.tensor(X_test, dtype=torch.float32).to(self.device)
-        y_test = torch.tensor(y_test, dtype=torch.float32).to(self.device)
-
-        with torch.no_grad():
-            outputs = self.model(X_test)
-            outputs = outputs.squeeze()
-
-        predictions = (outputs > 0.5).float()
-        y_test = y_test.long()
-        
-        accuracy = binary_accuracy(predictions, y_test)
-        precision = binary_precision(predictions, y_test)
-        recall = binary_recall(predictions, y_test)
-
-        print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}")
-        return accuracy.item(), precision.item(), recall.item()
-
-
-def train_model(features, labels):
+def split_data():
     scaler = StandardScaler()
     features_scaled = scaler.fit_transform(features)
 
-    X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
-    X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
+    X_train, X_valid, y_train, y_valid = train_test_split(features, labels, test_size=0.2, random_state=42)
+    X_train = X_train.reshape(X_train.shape[0], 1, X_train.shape[1])
+    X_valid = X_valid.reshape(X_valid.shape[0], 1, X_valid.shape[1])
 
-    model = trainCNN()
-    model.compile()
-    model.fit(X_train, y_train, validation_data=(X_val, y_val))
-    accuracy, precision, recall = model.eval(X_test, y_test)
+    train_dataset = TensorDataset(torch.FloatTensor(X_train), torch.FloatTensor(y_train))
+    train_loader = DataLoader(train_dataset, batch_size=BATCHSIZE, shuffle=True)
+    valid_dataset = TensorDataset(torch.FloatTensor(X_valid), torch.FloatTensor(y_valid))
+    valid_loader = DataLoader(valid_dataset, batch_size=BATCHSIZE, shuffle=True)
+    return train_loader, valid_loader
 
+def objective(trial):
+    global params
+    with mlflow.start_run(nested=True):
+        params = {}
+        model = define_model(trial).to(DEVICE)
+
+        optimizer_name = trial.suggest_categorical("optimizer", ["Adam", "RMSprop", "SGD"])
+        lr = trial.suggest_float("lr", 1e-5, 1e-1, log=True)
+        optimizer = getattr(optim, optimizer_name)(model.parameters(), lr=lr)
+        params["optimizer"] = optimizer_name
+        params["learning rate"] = lr
+
+        loss_func = nn.BCELoss()
+        train_loader, valid_loader = split_data()
+        for epoch in range(EPOCHS):
+            model.train()
+            for i, (inputs, labels) in enumerate(train_loader):
+                # Limiting training data for faster epochs
+                if i * BATCHSIZE >= N_TRAIN_EXAMPLES:
+                    break
+
+                inputs, labels = inputs.to(DEVICE), labels.to(DEVICE)
+
+                optimizer.zero_grad()
+                outputs = model(inputs)
+                outputs = outputs.squeeze()
+                loss = loss_func(outputs, labels)
+                loss.backward()
+                optimizer.step()
+
+            model.eval()
+            all_preds = []
+            all_labels = []
+            with torch.no_grad():
+                for i, (inputs, labels) in enumerate(valid_loader):
+                    # Limiting validation data
+                    if i * BATCHSIZE >= N_VALID_EXAMPLES:
+                        break
+                    inputs, labels = inputs.to(DEVICE), labels.to(DEVICE)
+                    outputs = model(inputs)
+                    outputs = outputs.squeeze()
+                    preds = (outputs > 0.5).float()
+                    all_preds.append(preds)
+                    all_labels.append(labels)
+
+            all_preds = torch.cat(all_preds)
+            all_labels = torch.cat(all_labels)
+            accuracy = binary_accuracy(all_preds, all_labels)
+            precision = binary_precision(all_preds, all_labels)
+            recall = binary_recall(all_preds, all_labels)
+
+            mlflow.log_metric("accuracy", accuracy.item(), step=epoch)
+            mlflow.log_metric("precision", precision.item(), step=epoch)
+            mlflow.log_metric("recall", recall.item(), step=epoch)
+
+            trial.report(accuracy, epoch)
+            if trial.should_prune():
+                raise optuna.exceptions.TrialPruned()
+
+        mlflow.log_params(params)
+
+        artifact_path = "model"
+        mlflow.pytorch.log_model(
+            pytorch_model=model,
+            artifact_path=artifact_path,
+            input_example=torch.randn(1, 1, 11366).numpy(),
+        )
+
+    return accuracy, precision, recall
+
+
+def get_or_create_experiment(experiment_name):
+    """
+    Retrieve the ID of an existing MLflow experiment or create a new one if it doesn't exist.
+
+    Parameters:
+    - experiment_name (str): Name of the MLflow experiment.
+
+    Returns:
+    - str: ID of the existing or newly created MLflow experiment.
+    """
+
+    if experiment := mlflow.get_experiment_by_name(experiment_name):
+        return experiment.experiment_id
+    else:
+        return mlflow.create_experiment(experiment_name)
+
+def champion_callback(study, frozen_trial):
+    """
+    Logging callback that will report when a new trial iteration improves upon existing
+    best trial values.
+    """
+
+    winner = study.user_attrs.get("winner", None)
+
+    if study.best_value and winner != study.best_value:
+        study.set_user_attr("winner", study.best_value)
+        if winner:
+            improvement_percent = (abs(winner - study.best_value) / study.best_value) * 100
+            print(
+                f"Trial {frozen_trial.number} achieved value: {frozen_trial.value} with "
+                f"{improvement_percent: .4f}% improvement"
+            )
+        else:
+            print(f"Initial trial {frozen_trial.number} achieved value: {frozen_trial.value}")
+
+
+def run_experiment(features_data, labels_data, experiment_id):
+    global features, labels
+    features = features_data
+    labels = labels_data
+
+    mlflow.set_experiment(experiment_id=experiment_id)
+
+    study = optuna.create_study(direction=['maximize', 'maximize', 'maximize'])
+    study.optimize(objective, n_trials=1000)
+
+    pruned_trials = study.get_trials(deepcopy=False, states=[TrialState.PRUNED])
+    complete_trials = study.get_trials(deepcopy=False, states=[TrialState.COMPLETE])
+
+    print("Study statistics: ")
+    print("  Number of finished trials: ", len(study.trials))
+    print("  Number of pruned trials: ", len(pruned_trials))
+    print("  Number of complete trials: ", len(complete_trials))
+
+    print("Best trial:")
+    trial = study.best_trial
+
+    print("  Value: ", trial.value)
+
+    print("  Params: ")
+    for key, value in trial.params.items():
+        print("    {}: {}".format(key, value))
+        
+
+
+def main():
+    path = sys.argv[1]
+    df = pd.read_csv(path)
+
+    audio_files = df['audio file']
+    audio_features = []
+    print("Extracting audio features...")
+    for audio_file in audio_files:
+        audio_feature = Audio.extract_audio_features(audio_file)
+        audio_features.append(audio_feature)
+    
+    transcriptions = df['transcription']
+    text_features = []
+    lengths = []
+    print("Extracting text features...")
+    for transcription in transcriptions:
+        if isinstance(transcription, float) and math.isnan(transcription):
+            text_features.append([])
+        else:
+            length, features = Text.extract_text_features(transcription)
+            text_features.append(features)
+            lengths.append(length)
+    
+    max_length = max(lengths)
+    real_text_features = []
+    for text_feature in text_features:
+        if len(text_feature) < max_length:
+            diff = max_length - len(text_feature)
+            text_feature = text_feature + [0] * diff
+        real_text_features.append(text_feature)
+
+    
+    combined_features = []
+    for i in range(len(audio_features)):
+        combined_row = np.hstack((audio_features[i], real_text_features[i]))
+        combined_features.append(combined_row)
+    combined_features = np.stack(combined_features, axis=0)
+
+
+    labels = df['label'].values
+
+    print("Setting up experiment...")
+    experiment_name = sys.argv[2]
+    experiment_id = get_or_create_experiment(experiment_name)
+    mlflow.set_experiment(experiment_id=experiment_id)
+
+    print("Training model...")
+    start = time.time()
+    run_experiment(combined_features, labels, experiment_id)
+    print(f"Latency: {time.time() - start}")
+
+
+if __name__ == '__main__':
+	main()

@@ -72,7 +72,7 @@ def splitBySilence(wav_file, cutoff=5, threshold=-40, min_length=7000, min_inter
     # Slice the audio
     chunks = slicer.slice(audio)
 
-    # Calculate total duration and the 1.5 second threshold
+    # Calculate total duration and the 1 second threshold
     total_duration = len(audio[0]) / sr
     threshold_time = total_duration - 1
 
