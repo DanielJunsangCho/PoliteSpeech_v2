@@ -293,10 +293,9 @@ def main():
     mlflow.set_experiment(experiment_id=experiment_id)
 
     print("Training model...")
-    start = time.time()
     run_experiment(combined_features, labels, experiment_id)
-    print(f"Latency: {time.time() - start}")
 
+    print("Finished!")
 
 if __name__ == '__main__':
 	main()
