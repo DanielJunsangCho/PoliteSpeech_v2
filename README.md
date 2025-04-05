@@ -1,7 +1,9 @@
 # Speaker Endpoint Detection Model
 
 ## Overview
-This repository outlines the training process of a deep learning, binary classification model capable of detecting when an individual has completely finished their train of thought. 
+This repository encompasses a personal curiosity project that I developed while talking with my friends: how does Siri know when I'm done talking?
+The following outlines the training process of a deep learning, binary classification model capable of detecting when an individual has completely finished their train of thought,     
+     regardless of pauses stemming from a broken train of thought, end of sentence, a cough, hack, hem, or whoop. 
 First, audio files from the dataset are split into 5 second chunks and stored, along with their transcriptions. Then the model is trained with these 5 second audio chunks and 
 related transcription. The model's hyperparameters are automatically tuned using Optuna's experimentation tool.
 
